@@ -8,8 +8,9 @@ function App() {
 	const [amount, setAmount] = useState(0);
 	const [humid, setHumid] = useState(0);
 	const [temp, setTemp] = useState(0);
+	const treshold = { amount: -10, humid: 50, temp: 30 };
 
-	let root = document.querySelector(":root");
+	let root = document.documentElement;
 
 	const getOptions = {
 		method: "GET",
@@ -36,10 +37,15 @@ function App() {
 	});
 
 	useEffect(() => {
+		const obj = { amount: -amount, humid: humid, temp: temp };
+		Object.entries(obj).map(([key, val]) => {
+			if (val > treshold[key]) document.getElementById(key).classList.add("warning");
+			else document.getElementById(key).classList.remove("warning");
+		});
+		root.style.setProperty("--amount", 440 - (440 * amount) / 40);
 		root.style.setProperty("--humid", -0.5 * humid - 50 + "%");
-		root.style.setProperty("--amount", 440 - (440 * amount) / 100);
 		root.style.setProperty("--temp", 2 * temp + "px");
-	}, [amount, humid, temp]);
+	}, [amount, humid, temp, root.style]);
 
 	function refillBtn() {
 		const putOptions = {
@@ -58,7 +64,7 @@ function App() {
 	return (
 		<div className="body">
 			<div className="app-container">
-				<div className="app-box">
+				<div className="app-box" id="amount">
 					<h2>Amount</h2>
 					<div className="data">
 						<svg>
@@ -68,7 +74,7 @@ function App() {
 						<h2 className="percent">{amount}</h2>
 					</div>
 				</div>
-				<div className="app-box">
+				<div className="app-box" id="humid">
 					<h2>Humidity</h2>
 					<div className="data">
 						<div className="water">
@@ -77,12 +83,12 @@ function App() {
 						<h2 className="percent">{humid}</h2>
 					</div>
 				</div>
-				<div className="app-box">
+				<div className="app-box" id="temp">
 					<h2>Temperature</h2>
 					<div className="data">
 						<div className="bar" div />
 						<div className="circle" div />
-						<h2 className="percent" id="temp">
+						<h2 className="percent" id="tempPercent">
 							{temp}
 						</h2>
 					</div>

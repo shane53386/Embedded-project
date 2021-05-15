@@ -151,11 +151,11 @@ svg circle:nth-child(2) {
 }
 
 .app-box:nth-child(1) svg circle:nth-child(2) {
-	stroke: red;
+	stroke: forestgreen;
 	stroke-dashoffset: var(--amount);
 }
 
-#temp {
+#tempPercent {
 	bottom: -190px;
 }
 
@@ -199,4 +199,20 @@ svg circle:nth-child(2) {
 
 .refill-btn:hover {
 	background: rgb(240, 73, 101);
+}
+
+.warning {
+	animation: warn 1s ease-in infinite alternate;
+}
+
+@keyframes warn {
+	0% {
+		background: orange;
+	}
+	/* 50% {
+		background: red;
+	} */
+	100% {
+		background: red;
+	}
 }
