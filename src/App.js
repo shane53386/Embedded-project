@@ -5,9 +5,9 @@ function App() {
 	const token =
 		"Basic ODFjZmNmZmEtZmE1Yy00OGE4LWI5ZWItMTY4ZDA0YjE0YjI5OkJQaEFaTGo0TnR3Tkg2WWMxRlhRMmVpaEJVZ2FuRHZn";
 
-	const [amount, setAmount] = useState(0);
-	const [humid, setHumid] = useState(0);
-	const [temp, setTemp] = useState(0);
+	const [amount, setAmount] = useState(null);
+	const [humid, setHumid] = useState(null);
+	const [temp, setTemp] = useState(null);
 	const treshold = { amount: -10, humid: 50, temp: 30 };
 
 	let root = document.documentElement;
@@ -39,7 +39,8 @@ function App() {
 	useEffect(() => {
 		const obj = { amount: -amount, humid: humid, temp: temp };
 		Object.entries(obj).map(([key, val]) => {
-			if (val > treshold[key]) document.getElementById(key).classList.add("warning");
+			if (val > treshold[key])
+				document.getElementById(key).classList.add("warning");
 			else document.getElementById(key).classList.remove("warning");
 		});
 		root.style.setProperty("--amount", 440 - (440 * amount) / 40);
