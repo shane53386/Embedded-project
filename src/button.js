@@ -5,14 +5,28 @@ function InputNumber(props) {
 
 	function increment() {
 		const max = props.maxValue;
-		console.log("max :>> ", max);
 		if (value >= max) return;
 		setValue((value) => value + 1);
 	}
+
+	function increment10() {
+		const max = props.maxValue;
+		if (value == max) return;
+		else if (value + 10 >= max) setValue(max);
+		else setValue((value) => value + 10);
+	}
+
 	function decrement() {
 		const min = props.minValue;
 		if (value <= min) return;
 		setValue((value) => value - 1);
+	}
+	
+	function decrement10() {
+		const min = props.minValue;
+		if (value == min) return;
+		else if (value - 10 <= min) setValue(0);
+		else setValue((value) => value - 10);
 	}
 
 	function refillBtn() {
@@ -33,6 +47,9 @@ function InputNumber(props) {
 
 	return (
 		<div className="input-number">
+			<button type="button" onClick={decrement10}>
+				&#8722;10
+			</button>
 			<button type="button" onClick={decrement}>
 				&#8722;
 			</button>
@@ -42,6 +59,9 @@ function InputNumber(props) {
 			</span>
 			<button type="button" onClick={increment}>
 				&#43;
+			</button>
+			<button type="button" onClick={increment10}>
+				&#43;10
 			</button>
 		</div>
 	);
