@@ -1,6 +1,6 @@
 :root {
 	--amount: 0;
-	--humid: 0%;
+	--humid: -50%;
 	--temp: 0px;
 }
 
@@ -75,7 +75,6 @@ svg circle:nth-child(2) {
 	height: 200%;
 	top: 0;
 	left: 50%;
-	transform: translate(-50%, var(--humid));
 	background: black;
 }
 
@@ -83,21 +82,14 @@ svg circle:nth-child(2) {
 	border-radius: 45%;
 	background: rgba(255, 255, 255, 1);
 	animation: animate 10s linear infinite;
+	transform: translate(-50%, calc(var(--humid)));
 }
 
 .wave::after {
 	border-radius: 45%;
 	background: rgba(255, 255, 255, 0.5);
 	animation: animate 5s linear infinite;
-}
-
-@keyframes animate {
-	0% {
-		transform: translate(-50%, var(--humid)) rotate(0deg);
-	}
-	100% {
-		transform: translate(-50%, var(--humid)) rotate(360deg);
-	}
+	transform: translate(-50%, var(--humid));
 }
 
 .bar {
@@ -187,7 +179,7 @@ svg circle:nth-child(2) {
 
 .refill-btn {
 	color: white;
-	width: 30vw;
+	/* width: 30vw; */
 	text-align: center;
 	background-color: rgb(231, 118, 179);
 	border: none;
@@ -202,17 +194,77 @@ svg circle:nth-child(2) {
 }
 
 .warning {
-	animation: warn 1s ease-in infinite alternate;
+	animation: warn 0.7s ease-in infinite alternate;
 }
 
 @keyframes warn {
 	0% {
 		background: orange;
 	}
-	/* 50% {
-		background: red;
-	} */
 	100% {
 		background: red;
 	}
+}
+
+.input-number {
+	position: relative;
+	width: 200px;
+	height: 60px;
+	background-color: transparent;
+}
+
+.input-number span {
+	position: absolute;
+	display: inline-block;
+	background-color: white;
+	height: 100%;
+	width: 30%;
+	border-radius: 50%;
+	text-align: center;
+	transform: translateX(-50%);
+	line-height: 60px;
+	font-size: 20px;
+	color: green;
+	cursor: pointer;
+}
+
+.hidden {
+	transition: 0.3s ease-in-out;
+	opacity: 0;
+}
+
+.input-number button {
+	display: inline-block;
+	width: 50%;
+	height: 100%;
+	border: none;
+	color: white;
+	font-size: 20px;
+	cursor: pointer;
+	background-color: rgb(0, 148, 44);
+	transition: background-color 0.2s ease;
+}
+
+.input-number button:nth-of-type(1) {
+	padding-right: 20px;
+	border-radius: 15px 0 0 15px;
+}
+
+.input-number button:nth-of-type(2) {
+	padding-left: 20px;
+	border-radius: 0 15px 15px 0;
+}
+
+.hidden:hover {
+	opacity: 1;
+	transform: translateX(-50%) scale(1.2);
+}
+
+.hidden:active {
+	color: white;
+	background: rgb(4, 107, 0);
+}
+
+.input-number button:hover {
+	background-color: rgb(4, 107, 0);
 }

@@ -1,7 +1,7 @@
-@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+HK&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Noto+Sans+HK&display=swap");
 
 * {
-	font-family: 'Noto Sans HK', sans-serif !important;
+	font-family: "Noto Sans HK", sans-serif !important;
 }
 
 body {
@@ -12,5 +12,5 @@ body {
 	justify-content: center;
 	align-items: center;
 	min-height: 100vh;
-	background-color: white;
+	background-color: cornflowerblue;
 }

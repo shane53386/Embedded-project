@@ -1,5 +1,6 @@
 import "./App.css";
 import React, { useState, useEffect } from "react";
+import InputNumber from "./button";
 
 function App() {
 	const token =
@@ -46,21 +47,7 @@ function App() {
 		root.style.setProperty("--amount", 440 - (440 * amount) / 40);
 		root.style.setProperty("--humid", -0.5 * humid - 50 + "%");
 		root.style.setProperty("--temp", 2 * temp + "px");
-	}, [amount, humid, temp, root.style]);
-
-	function refillBtn() {
-		const putOptions = {
-			method: "PUT",
-			headers: {
-				"Content-Type": "text/plain",
-				Authorization: token,
-			},
-			body: "1",
-		};
-		fetch("https://api.netpie.io/v2/device/message?topic=fill", putOptions)
-			.then((response) => response.json())
-			.then((data) => console.log(data));
-	}
+	}, [amount, humid, temp]);
 
 	return (
 		<div className="body">
@@ -96,9 +83,7 @@ function App() {
 				</div>
 			</div>
 			<div className="footer">
-				<button className="refill-btn" onClick={refillBtn}>
-					Refill
-				</button>
+				<InputNumber minValue={0} maxValue={40 - amount} />
 			</div>
 		</div>
 	);
