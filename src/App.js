@@ -4,12 +4,12 @@ import InputNumber from "./button";
 
 function App() {
 	const token =
-		"Basic ODFjZmNmZmEtZmE1Yy00OGE4LWI5ZWItMTY4ZDA0YjE0YjI5OkJQaEFaTGo0TnR3Tkg2WWMxRlhRMmVpaEJVZ2FuRHZn";
-
+		"Basic ZGVhNWRmYzctNmE3OC00NzI1LThjN2ItMTY1MjEzNDlmYjczOmNkNG52Z3U2YlExd1pabjd3eFF2dFdXVGIxUmRNMlc1";
+	const max = 40;
 	const [amount, setAmount] = useState(null);
 	const [humid, setHumid] = useState(null);
 	const [temp, setTemp] = useState(null);
-	const treshold = { amount: -10, humid: 50, temp: 30 };
+	const treshold = { amount: [-40, -10], humid: [0, 50], temp: [30, 35] };
 
 	let root = document.documentElement;
 
@@ -24,7 +24,7 @@ function App() {
 	useEffect(() => {
 		const interval = setInterval(() => {
 			fetch(
-				"https://api.netpie.io/v2/device/shadow/data?alias=nodeMCU",
+				"https://api.netpie.io/v2/device/shadow/data?alias=sensor",
 				getOptions
 			)
 				.then((response) => response.json())
@@ -40,11 +40,11 @@ function App() {
 	useEffect(() => {
 		const obj = { amount: -amount, humid: humid, temp: temp };
 		Object.entries(obj).map(([key, val]) => {
-			if (val > treshold[key])
+			if (val < treshold[key][0] || val > treshold[key][1])
 				document.getElementById(key).classList.add("warning");
 			else document.getElementById(key).classList.remove("warning");
 		});
-		root.style.setProperty("--amount", 440 - (440 * amount) / 40);
+		root.style.setProperty("--amount", 440 - (440 * amount) / max);
 		root.style.setProperty("--humid", -0.5 * humid - 50 + "%");
 		root.style.setProperty("--temp", 2 * temp + "px");
 	}, [amount, humid, temp]);
@@ -53,7 +53,7 @@ function App() {
 		<div className="body">
 			<div className="app-container">
 				<div className="app-box" id="amount">
-					<h2>Amount</h2>
+					<h2>Amount (sets)</h2>
 					<div className="data">
 						<svg>
 							<circle r="70" />
@@ -61,18 +61,20 @@ function App() {
 						</svg>
 						<h2 className="percent">{amount}</h2>
 					</div>
+					<div className="tooltiptext">More than 10 sets</div>
 				</div>
 				<div className="app-box" id="humid">
-					<h2>Humidity</h2>
+					<h2>Humidity (%)</h2>
 					<div className="data">
 						<div className="water">
 							<div className="wave" />
 						</div>
 						<h2 className="percent">{humid}</h2>
 					</div>
+					<div className="tooltiptext">Not exceed 50%</div>
 				</div>
 				<div className="app-box" id="temp">
-					<h2>Temperature</h2>
+					<h2>Temperature (°C)</h2>
 					<div className="data">
 						<div className="bar" div />
 						<div className="circle" div />
@@ -80,10 +82,15 @@ function App() {
 							{temp}
 						</h2>
 					</div>
+					<div className="tooltiptext">Between 30-35 °C</div>
 				</div>
 			</div>
 			<div className="footer">
-				<InputNumber minValue={0} maxValue={40 - amount} />
+				<InputNumber
+					minValue={0}
+					maxValue={max - amount}
+					token={token}
+				/>
 			</div>
 		</div>
 	);

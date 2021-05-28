@@ -24,7 +24,6 @@ h2 {
 	background-color: rgb(209, 198, 198);
 	border-radius: 20px;
 	text-align: center;
-	overflow: hidden;
 }
 
 circle {
@@ -192,7 +191,7 @@ svg circle:nth-child(2) {
 
 .input-number {
 	position: relative;
-	width: 320px;
+	width: 480px;
 	height: 60px;
 	background-color: transparent;
 }
@@ -205,7 +204,7 @@ svg circle:nth-child(2) {
 	width: 60px;
 	border-radius: 50%;
 	text-align: center;
-	transform: translateX(-50%);
+	transform: translateX(-50%) scale(1.1);
 	line-height: 60px;
 	font-size: 20px;
 	color: green;
@@ -225,8 +224,9 @@ svg circle:nth-child(2) {
 	color: white;
 	font-size: 16px;
 	cursor: pointer;
-	background-color: rgb(0, 148, 44);
-	transition: background-color 0.2s ease;
+	background-color: rgb(16, 148, 38);
+	border-radius: 0px;
+	transition: background-color 0.3s ease-in-out;
 }
 
 .input-number button:nth-of-type(1) {
@@ -234,15 +234,15 @@ svg circle:nth-child(2) {
 	border-radius: 15px 0 0 15px;
 }
 
-.input-number button:nth-of-type(2) {
-	padding-right: 30px;
-}
-
 .input-number button:nth-of-type(3) {
-	padding-left: 30px;
+	padding-right: 35px;
 }
 
 .input-number button:nth-of-type(4) {
+	padding-left: 35px;
+}
+
+.input-number button:nth-of-type(6) {
 	padding-left: 0px;
 	border-radius: 0 15px 15px 0;
 }
@@ -254,9 +254,39 @@ svg circle:nth-child(2) {
 
 .hidden:active {
 	color: white;
-	background: rgb(4, 107, 0);
+	background: green;
 }
 
 .input-number button:hover {
-	background-color: rgb(4, 107, 0);
+	background-color: green;
+}
+
+.app-box .tooltiptext {
+	visibility: hidden;
+	width: max-content;
+	background-color: midnightblue;
+	color: #fff;
+	text-align: center;
+	border-radius: 6px;
+	padding: 5px 10px;
+	position: absolute;
+	z-index: 1;
+	bottom: -10%;
+	left: 50%;
+	transform: translateX(-50%);
+}
+
+.app-box .tooltiptext::after {
+	content: "";
+	position: absolute;
+	bottom: 100%;
+	left: 50%;
+	transform: translateX(-50%);
+	border-width: 5px;
+	border-style: solid;
+	border-color: transparent transparent midnightblue transparent;
+}
+
+.app-box:hover .tooltiptext {
+	visibility: visible;
 }

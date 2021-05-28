@@ -2,29 +2,28 @@ import { useState } from "react";
 
 function InputNumber(props) {
 	const [value, setValue] = useState(0);
+	const token = props.token;
+	const max = props.maxValue;
+	const min = props.minValue;
 
 	function increment() {
-		const max = props.maxValue;
 		if (value >= max) return;
 		setValue((value) => value + 1);
 	}
 
 	function increment10() {
-		const max = props.maxValue;
-		if (value == max) return;
+		if (value >= max) return;
 		else if (value + 10 >= max) setValue(max);
 		else setValue((value) => value + 10);
 	}
 
 	function decrement() {
-		const min = props.minValue;
 		if (value <= min) return;
 		setValue((value) => value - 1);
 	}
-	
+
 	function decrement10() {
-		const min = props.minValue;
-		if (value == min) return;
+		if (value <= min) return;
 		else if (value - 10 <= min) setValue(0);
 		else setValue((value) => value - 10);
 	}
@@ -34,8 +33,7 @@ function InputNumber(props) {
 			method: "PUT",
 			headers: {
 				"Content-Type": "text/plain",
-				Authorization:
-					"Basic ODFjZmNmZmEtZmE1Yy00OGE4LWI5ZWItMTY4ZDA0YjE0YjI5OkJQaEFaTGo0TnR3Tkg2WWMxRlhRMmVpaEJVZ2FuRHZn",
+				Authorization: token,
 			},
 			body: value.toString(),
 		};
@@ -47,6 +45,9 @@ function InputNumber(props) {
 
 	return (
 		<div className="input-number">
+			<button type="button" onClick={() => setValue(min)}>
+				MIN
+			</button>
 			<button type="button" onClick={decrement10}>
 				&#8722;10
 			</button>
@@ -62,6 +63,9 @@ function InputNumber(props) {
 			</button>
 			<button type="button" onClick={increment10}>
 				&#43;10
+			</button>
+			<button type="button" onClick={() => setValue(max)}>
+				MAX
 			</button>
 		</div>
 	);
